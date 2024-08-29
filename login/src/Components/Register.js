@@ -11,6 +11,9 @@ export default function Register() {
         confirmarSenha: ''
     });
 
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState(''); // success or error
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     // Função para atualizar os valores do formulário
@@ -29,12 +32,22 @@ export default function Register() {
 
         // Verifica se todos os campos estão preenchidos
         if (!usuario || !email || !senha || !confirmarSenha) {
-            alert('Todos os campos devem ser preenchidos.');
+            setMessage('Todos os campos devem ser preenchidos.');
+            setMessageType('error');
             return;
         }
 
-        if (senha != confirmarSenha){
-            alert('Senhas erradas');
+        // Verifica o formato do email
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setMessage('O email deve ser válido.');
+            setMessageType('error');
+            return;
+        }
+
+        // Verifica se as senhas são iguais
+        if (senha !== confirmarSenha) {
+            setMessage('As senhas não coincidem.');
+            setMessageType('error');
             return;
         }
 
@@ -55,22 +68,26 @@ export default function Register() {
             // Converte a resposta para JSON
             const result = await response.json();
 
-            // Se a resposta do PHP indicar um erro, exibe um alerta
+            // Se a resposta do PHP indicar um erro, exibe a mensagem
             if (result.error) {
-                alert(result.error);
+                setMessage(result.message); // Atualiza o estado com a mensagem de erro
+                setMessageType('error'); // Define o tipo de mensagem como erro
             } else {
-                alert('Cadastro realizado com sucesso!');
-                // Limpa os campos do formulário, se necessário
+                setMessage(result.message); // Atualiza o estado com a mensagem de sucesso
+                setMessageType('success'); // Define o tipo de mensagem como sucesso
+                // Limpa os campos do formulário
                 setFormValues({
                     usuario: '',
                     email: '',
                     senha: '',
                     confirmarSenha: ''
                 });
-                navigate('/entrar');
+                // Navega para a página de login
+                setTimeout(() => navigate('/entrar'), 2000); // Redireciona após 2 segundos para permitir a visualização da mensagem
             }
         } catch (error) {
-            alert('Ocorreu um erro ao enviar o formulário.');
+            setMessage('Ocorreu um erro ao enviar o formulário.');
+            setMessageType('error');
         }
     };
 
@@ -78,11 +95,44 @@ export default function Register() {
         <div className={styles.container}>
             <h1>Cadastrar</h1>
             <form onSubmit={handleSubmit}>
-                <Input name="usuario" type="text" placeholder="Usuário" onChange={handleChange} value={formValues.usuario} />
-                <Input name="email" type="text" placeholder="Email" onChange={handleChange} value={formValues.email} />
-                <Input name="senha" type="password" placeholder="Senha" onChange={handleChange} value={formValues.senha} />
-                <Input name="confirmarSenha" type="password" placeholder="Confirmar senha" onChange={handleChange} value={formValues.confirmarSenha} />
+                <Input
+                    name="usuario"
+                    type="text"
+                    placeholder="Usuário"
+                    onChange={handleChange}
+                    value={formValues.usuario}
+                />
+                <Input
+                    name="email"
+                    type="text"
+                    placeholder="Email"
+                    onChange={handleChange}
+                    value={formValues.email}
+                />
+                <Input
+                    name="senha"
+                    type="password"
+                    placeholder="Senha"
+                    onChange={handleChange}
+                    value={formValues.senha}
+                />
+                <Input
+                    name="confirmarSenha"
+                    type="password"
+                    placeholder="Confirmar senha"
+                    onChange={handleChange}
+                    value={formValues.confirmarSenha}
+                />
                 <button type="submit">Cadastrar</button>
+                {message && (
+                    <div
+                        className={`${styles.message} ${
+                            messageType === 'success' ? styles.success : styles.error
+                        }`}
+                    >
+                        {message}
+                    </div>
+                )}
             </form>
         </div>
     );
