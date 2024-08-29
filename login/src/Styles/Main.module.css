@@ -1,0 +1,51 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+    padding: 0px 80px;
+    border: 2px solid #333333;
+    border-radius: 10px;
+    
+
+}
+
+.main p{
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+.main h2{
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 1px #99AAFC;
+    color: black;
+
+}
+
+.main h1{
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 1px #99AAFC;
+    color: black;
+}
+
+.main a img{
+    height: 200px;
+    border-radius: 10%;
+    border: 1px solid black;
+    box-shadow: 6px 5px 1px 1px #99AAFC;
+    transition: all 0.5s;
+}
+
+.main a{
+    border-radius: 10%;
+}
+
+.main a img:hover{
+    transform: scale(1.1);
+}

@@ -1,0 +1,53 @@
+.header{
+    background-color: #333333;
+    color: white;
+    border-radius: 0px 0px 10px 10px;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    row-gap: 20px;
+    padding: 20px;
+    margin-bottom: auto;
+
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+}
+
+h1{
+    font-size: 48px;
+    color: #99AAFC;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+nav a:hover{
+    background-color: #1A1A1A;
+    
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    column-gap: 50px;
+    
+}
+
+nav ul li{
+    transition: all 0.5s;
+
+}
+
+nav ul li:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}

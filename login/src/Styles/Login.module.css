@@ -1,0 +1,78 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 10px;
+    
+}
+
+.login h1{
+    color: black;
+    margin-bottom: 10px;
+    text-shadow: 0px 1px 5px #99AAFC;
+}
+
+.password{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    
+    
+}
+
+.icon{
+    position: absolute;
+    cursor: pointer;
+    margin-left: 220px;
+    transition: all 0.5s;
+    user-select: none;
+}
+
+.icon:hover{
+    color: blue;
+}
+
+button{
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #99AAFC;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+button:hover{
+    background-color: blue;
+    color: white;
+}
+
+.container2{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: center;
+}
+
+.container2 a{
+    color: rgba(0, 0, 0, 0.466);
+    text-decoration: none;
+    transition: all 1s;
+}
+
+.container2 a:hover{
+    color: blue;
+}
