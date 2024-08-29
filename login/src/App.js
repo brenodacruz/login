@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import styles from "./App.module.css"
+// src/App.js
+// src/App.js
+import React, { useEffect, useState } from 'react';
+import { fetchUsers } from './Api';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const usersData = await fetchUsers();
+            setUsers(usersData);
+        };
+        getUsers();
+    }, []);
+
+    return (
+        <div className={styles.div}>
+            <h1>Usuários</h1>
+            <ul>
+                {users.map(user => (
+                    <li key={user.id}>{user.usuario} - {user.email}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
 
 export default App;
+
