@@ -20,6 +20,8 @@
 h1{
     font-size: 48px;
     color: #99AAFC;
+    transition: all 0.5s;
+    text-shadow: 3px 5px 1px rgba(0, 0, 0, 0.459);
 }
 
 nav a {

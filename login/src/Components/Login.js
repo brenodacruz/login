@@ -1,60 +1,60 @@
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
-import styles from '../Styles/Login.module.css';
-import Input from './Input';
+import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import styles from '../Styles/Login.module.css'
+import Input from './Input'
 
 export default function Login() {
     const [formValues, setFormValues] = useState({
         usuario: '',
         senha: ''
-    });
-    const [showPassword, setShowPassword] = useState(false);
-    const [message, setMessage] = useState('');
-    const [messageType, setMessageType] = useState(''); // success or error
-    const navigate = useNavigate();
+    })
+    const [showPassword, setShowPassword] = useState(false)
+    const [message, setMessage] = useState('')
+    const [messageType, setMessageType] = useState('')
+    const navigate = useNavigate()
 
     function togglePasswordVisibility() {
-        setShowPassword(!showPassword);
+        setShowPassword(!showPassword)
     }
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault()
 
         const { usuario, senha } = formValues;
 
         if (!usuario || !senha) {
             setMessage('Por favor, preencha todos os campos.');
-            setMessageType('error');
+            setMessageType('error')
             return;
         }
 
         try {
-            const formData = new FormData();
-            formData.append('usuario', usuario);
-            formData.append('senha', senha);
+            const formData = new FormData()
+            formData.append('usuario', usuario)
+            formData.append('senha', senha)
 
             const response = await fetch('http://localhost/login/login.php', {
                 method: 'POST',
                 body: formData,
             });
 
-            const result = await response.json();
+            const result = await response.json()
 
             if (result.error) {
-                setMessage(result.message);
-                setMessageType('error'); // Define o tipo de mensagem como erro
+                setMessage(result.message)
+                setMessageType('error')
             } else {
-                setMessage(result.message);
-                setMessageType('success'); // Define o tipo de mensagem como sucesso
+                setMessage(result.message)
+                setMessageType('success')
                 setTimeout(() => {
-                    navigate('/logado'); // Redireciona após 2 segundos para permitir a visualização da mensagem
+                    navigate('/logado')
                 }, 2000);
             }
         } catch (error) {
-            setMessage('Erro ao tentar fazer login.');
-            setMessageType('error');
+            setMessage('Erro ao tentar fazer login.')
+            setMessageType('error')
         }
     };
 
